@@ -1,5 +1,6 @@
 
 import json
+import threading
 import utils.mqttconnection as mqttconn
 from timeloop import Timeloop
 from datetime import timedelta
@@ -10,6 +11,7 @@ mqttc = None
 
 @tl.job(interval=timedelta(seconds=1))
 def sample_job():
+    print("ts: %d\r\n" %( datetime.timestamp(datetime.now()) ))
     mqttc.publish("topic/test", "ts: %d\r\n" %( datetime.timestamp(datetime.now()) ), qos=0, retain=False)
 
 
@@ -27,5 +29,5 @@ if __name__ == "__main__":
     mqtt = mqttconn.MqttConnection(host, port, username, password)
     mqttc = mqtt.getClient()
 
-
+    tl.start(block=True)
 

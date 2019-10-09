@@ -1,6 +1,6 @@
 {
     "host":"localhost",
     "port": 1883,
-    "username": "uname",
-    "password": "xyz"
+    "username": "my_username",
+    "password": "my_password"
 }
